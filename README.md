@@ -42,8 +42,8 @@ This recipe app allows users to search for recipes in multiple ways, manage thei
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/mirafl0res/examination-kurs2
-cd examination-kurs2
+git clone https://github.com/mirafl0res/recipe-discovery-app
+cd recipe-discovery-app
 ```
 
 2. Install dependencies:
