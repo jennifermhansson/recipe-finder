@@ -1,5 +1,4 @@
 export { default as AdvancedFilters } from "./AdvancedFilters";
-export { default as MockRecipesQuickList } from "./mock/MockRecipesQuickList";
 export { default as MockSearchToggle } from "./mock/MockToggle";
 export { PillGroup } from "./PillGroup";
 export { default as SearchForm } from "./SearchForm";

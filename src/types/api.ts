@@ -50,6 +50,8 @@ usedIngredients?: Array<{
 export type InstructionStep = {
   number: number;
   step: string;
+  ingredients?: Array<{ id: number; name: string; image?: string }>;
+  equipment?: Array<{ id: number; name: string; image?: string }>;
 };
 
 export type AnalyzedInstruction = {
@@ -59,7 +61,11 @@ export type AnalyzedInstruction = {
 
 export type Recipe = SearchResponse["results"][number] & {
   analyzedInstructions?: AnalyzedInstruction[];
-  extendedIngredients?: Array<{ id: number; original: string }>;
+  extendedIngredients?: Array<{
+    id: number;
+    original: string;
+    [key: string]: unknown;
+  }>;
   servings?: number;
   readyInMinutes?: number;
   diets?: string[];

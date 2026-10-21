@@ -13,7 +13,6 @@
 
 import type { SearchOptions, SearchResponse, Recipe } from "../types/api";
 import { searchSpoonacular, getRecipeById } from "./spoonacular";
-import { filterMockRecipes, getMockRecipeById } from "../data/mockRecipes";
 import { DEFAULT_RECIPE_COUNT } from "../constants";
 
 // Toggle mock/real API using localStorage
@@ -29,7 +28,8 @@ export const USE_MOCK_DATA =
 export const searchRecipes = async (
   options: SearchOptions
 ): Promise<SearchResponse> => {
-  if (USE_MOCK_DATA) {
+  if (import.meta.env.DEV && USE_MOCK_DATA) {
+    const { filterMockRecipes } = await import("../data/mockRecipes");
     const results = filterMockRecipes(options);
     return {
       results,
@@ -47,7 +47,8 @@ export const searchRecipes = async (
  * Uses mock data in development, real API in production
  */
 export const getRecipe = async (id: number): Promise<Recipe> => {
-  if (USE_MOCK_DATA) {
+  if (import.meta.env.DEV && USE_MOCK_DATA) {
+    const { getMockRecipeById } = await import("../data/mockRecipes");
     const recipe = getMockRecipeById(id);
     if (!recipe) {
       throw new Error(`Recipe with ID ${id} not found in mock data`);
