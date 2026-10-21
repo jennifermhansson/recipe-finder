@@ -2,11 +2,20 @@ import type { SearchOptions, SearchResponse, Recipe } from "../types/api";
 import { DEFAULT_RECIPE_COUNT } from "../constants";
 
 const BASE_URL = "https://api.spoonacular.com";
-const API_KEY = import.meta.env.VITE_SPOONACULAR_API_KEY;
+const ENV_API_KEY = import.meta.env.VITE_SPOONACULAR_API_KEY;
+
+let USER_API_KEY: string | null = null;
+export const setClientApiKey = (key: string | null) => {
+  USER_API_KEY = key ?? null;
+};
+
+const getApiKey = (): string | null => USER_API_KEY ?? ENV_API_KEY ?? null;
 
 const ensureApiKey = () => {
-  if (!API_KEY)
-    throw new Error("Missing Spoonacular API key (VITE_SPOONACULAR_API_KEY)");
+  if (!getApiKey())
+    throw new Error(
+      "Missing Spoonacular API key"
+    );
 };
 
 const addParamsToUrl = (url: URL, params: Record<string, unknown>): void => {
@@ -23,7 +32,8 @@ const fetchSpoonacular = async <T>(
 ): Promise<T> => {
   ensureApiKey();
   const url = new URL(`${BASE_URL}${endpoint}`);
-  url.searchParams.set("apiKey", API_KEY);
+  const key = getApiKey();
+  if (key) url.searchParams.set("apiKey", key);
   if (params) {
     addParamsToUrl(url, params);
   }
@@ -54,3 +64,9 @@ const getRecipeById = async (id: number): Promise<Recipe> => {
 };
 
 export { searchSpoonacular, getRecipeById };
+
+export default {
+  setClientApiKey,
+  searchSpoonacular,
+  getRecipeById,
+};

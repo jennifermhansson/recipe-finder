@@ -1,9 +1,9 @@
 .favorite-btn {
-  background: #fff;
+  background: var(--color-bg);
   border: none;
   font-size: 1.4rem;
   cursor: pointer;
-  color: #333;
+  color: var(--color-primary-text);
   transition: color 0.2s ease, transform 0.15s ease;
 }
 
@@ -14,8 +14,8 @@
 }
 
 .favorite-btn.active .heart-icon {
-  fill: #ff4d4d;
-  stroke: #ff4d4d;
+  fill: var(--color-accent-secondary);
+  stroke: var(--color-accent-secondary);
 }
 
 .favorite-btn:hover .heart-icon {
